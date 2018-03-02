@@ -26,7 +26,7 @@ namespace BreakableToys
     {
         public int Start { get; set; }
         public int End { get; set; }
-/
+
         public IndexStore(int index)
         {
             Start = End = index;
