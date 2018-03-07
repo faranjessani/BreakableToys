@@ -57,6 +57,7 @@
     <Compile Include="PrintBinary.cs" />
     <Compile Include="PrintDecimal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RollDice.cs" />
     <Compile Include="SortedRotatedArray.cs" />
     <Compile Include="SplitAString.cs" />
   </ItemGroup>
