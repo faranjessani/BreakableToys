@@ -19,7 +19,7 @@ namespace BreakableToys
         private void GetRollDiceResults(int n, List<int> list, List<List<int>> result)
         {
             if (n == 0)
-                result.Add(list);
+                result.Add(new List<int>(list));
             else
                 for (var i = 1; i <= 6; i++)
                 {
