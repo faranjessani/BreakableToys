@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
+﻿using FluentAssertions;
+using NUnit.Framework;
 
 namespace BreakableToys
 {
@@ -11,8 +11,8 @@ namespace BreakableToys
             if (ints[n] > 0)
                 return ints[n];
 
-            int sum = 0;
-            
+            var sum = 0;
+
             if (n >= 1)
                 sum += CountSteps(n - 1, ints);
             if (n >= 2)
@@ -25,11 +25,11 @@ namespace BreakableToys
 
         public static int CountStepsDynamically(int n, int[] ints)
         {
-            for (int i = 1; i <= n; i++)
+            for (var i = 1; i <= n; i++)
             {
                 if (i >= 3)
                     ints[i] += ints[i - 3];
-                if(i >= 2)
+                if (i >= 2)
                     ints[i] += ints[i - 2];
                 if (i >= 1)
                     ints[i] += ints[i - 1];

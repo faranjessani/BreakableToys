@@ -52,11 +52,12 @@
     <Compile Include="CountCoins.cs" />
     <Compile Include="FindCount.cs" />
     <Compile Include="GarbageCollectorTests.cs" />
-    <Compile Include="GetPermutations.cs" />
+    <Compile Include="GetAllPermutations.cs" />
     <Compile Include="GetValuesBetween.cs" />
+    <Compile Include="PrintBinary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RetryTest.cs" />
     <Compile Include="SortedRotatedArray.cs" />
+    <Compile Include="SplitAString.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -8,6 +8,11 @@ namespace BreakableToys
     [TestFixture]
     public class GetValuesBetween
     {
+        private RangeStore Init(int[] values)
+        {
+            return new RangeStore(values);
+        }
+
         [Test]
         public void GetNumbersBetween()
         {
@@ -15,24 +20,20 @@ namespace BreakableToys
             var result = sut.Get(3, 9);
             result.Should().Be(5);
         }
-
-        private RangeStore Init(int[] values)
-        {
-            return new RangeStore(values);
-        }
     }
 
     public class IndexStore
     {
-        public int Start { get; set; }
-        public int End { get; set; }
-
         public IndexStore(int index)
         {
             Start = End = index;
         }
+
+        public int Start { get; set; }
+        public int End { get; set; }
     }
-    class RangeStore
+
+    internal class RangeStore
     {
         private readonly Dictionary<int, IndexStore> _reverseLookup;
 
@@ -48,14 +49,11 @@ namespace BreakableToys
                 var value = values[index];
                 IndexStore indexStore;
                 if (_reverseLookup.TryGetValue(value, out indexStore))
-                {
                     indexStore.End = index;
-                }
                 else
                     _reverseLookup[value] = new IndexStore(index);
             }
         }
-
 
         public int Get(int a, int b)
         {

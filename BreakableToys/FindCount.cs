@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BreakableToys
@@ -27,7 +28,8 @@ namespace BreakableToys
         [TestCaseSource(nameof(GetWordsFromNumbersTestCases))]
         public void GetWordsFromNumbersTest(string input, string[] result)
         {
-            GetWordsFromNumbers(input).Should().BeEquivalentTo(result);
+            var wordsFromNumbers = GetWordsFromNumbers(input);
+            wordsFromNumbers.Should().BeEquivalentTo(result);
         }
 
         public static IEnumerable<object[]> GetWordsFromNumbersTestCases
@@ -45,8 +47,8 @@ namespace BreakableToys
         {
             var results = new List<string>();
 
-            var combinations = GetCombinations(input);
-            foreach (var combination in combinations)
+            var permutations = SplitString(input);
+            foreach (var combination in permutations)
             {
                 var result = ConvertCombinationToString(combination);
                 if (!string.IsNullOrEmpty(result))
@@ -54,6 +56,32 @@ namespace BreakableToys
             }
 
             return results;
+        }
+
+        private IEnumerable<string[]> SplitString(string input)
+        {
+            var result = new List<string[]>();
+            SplitString(input, new List<string>(), result);
+            return result;
+        }
+
+        private void SplitString(string input, List<string> list, List<string[]> result)
+        {
+            if (input.Length == 0)
+            {
+                result.Add(list.ToArray());
+            }
+            else
+            {
+                for (int i = 0; i < input.Length; i++)
+                {
+                    var left = input.Substring(0, i + 1);
+                    list.Add(left);
+                    var right = input.Substring(i + 1);
+                    SplitString(right, list, result);
+                    list.Remove(left);
+                }
+            }
         }
 
         private static string ConvertCombinationToString(IEnumerable<string> combination)
@@ -76,24 +104,31 @@ namespace BreakableToys
             return !invalid ? sb.ToString() : null;
         }
 
-        public IEnumerable<IEnumerable<string>> GetCombinations(string str)
+        /// <summary>
+        /// This solution uses a sliding window of length 2 to combine values
+        /// ie. 1234, it combines 12 then returns 12,3,4
+        /// Next it combines 23 and returns 1,23,4
+        /// Last it would combine 34 and return 1,2,34
+        /// I did this because we know that our max number is 2 digits
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public IEnumerable<IEnumerable<string>> GetCombinationsOfLength2OrLess(string str)
         {
-            if (str.Length == 1)
-                return new[] { new[] { str } };
-
-            var combinations = new List<IEnumerable<string>> { new List<string>() { str } };
+            var charArray = str.ToCharArray().Select(c => c.ToString()).ToList();
+            yield return charArray;
             for (int i = 1; i < str.Length; i++)
             {
-                var combos = GetCombinations(str.Substring(i));
-                foreach (var combo in combos)
+                var temp = new List<string>();
+                for (int j = 0; j < i - 1; j++)
                 {
-                    var innerList = new List<string> { str.Substring(0, i) };
-                    innerList.AddRange(combo);
-                    combinations.Add(innerList);
+                    temp.Add(charArray[j]);
                 }
-            }
 
-            return combinations;
+                temp.Add($"{charArray[i - 1]}{charArray[i]}");
+                temp.AddRange(charArray.Skip(i + 1));
+                yield return temp;
+            }
         }
     }
 }
