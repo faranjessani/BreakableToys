@@ -55,6 +55,7 @@
     <Compile Include="GarbageCollectorTests.cs" />
     <Compile Include="GetAllPermutations.cs" />
     <Compile Include="GetValuesBetween.cs" />
+    <Compile Include="LookAndSay.cs" />
     <Compile Include="OneEdit.cs" />
     <Compile Include="PrintBinary.cs" />
     <Compile Include="PrintDecimal.cs" />
