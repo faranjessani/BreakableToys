@@ -64,6 +64,7 @@
     <Compile Include="SortedRotatedArray.cs" />
     <Compile Include="SpiralArray.cs" />
     <Compile Include="SplitAString.cs" />
+    <Compile Include="StrictlyBetween.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
