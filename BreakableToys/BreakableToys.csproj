@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Friendships.cs" />
-    <Compile Include="CountCoins.cs" />
+    <Compile Include="CountSteps.cs" />
     <Compile Include="FindCount.cs" />
     <Compile Include="GarbageCollectorTests.cs" />
     <Compile Include="GetAllPermutations.cs" />

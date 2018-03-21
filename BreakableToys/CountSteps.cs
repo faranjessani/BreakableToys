@@ -4,23 +4,19 @@ using NUnit.Framework;
 namespace BreakableToys
 {
     [TestFixture]
-    public class CountCoins
+    public class CountSteps
     {
-        public static int CountSteps(int n, int[] ints)
+        public static int CountStepsR(int n, int[] ints)
         {
+            if (n < 0)
+                return 0;
+            if (n == 0)
+                return 1;
+            
             if (ints[n] > 0)
                 return ints[n];
 
-            var sum = 0;
-
-            if (n >= 1)
-                sum += CountSteps(n - 1, ints);
-            if (n >= 2)
-                sum += CountSteps(n - 2, ints);
-            if (n >= 3)
-                sum += CountSteps(n - 3, ints);
-
-            return sum;
+            return ints[n] = CountStepsR(n - 1, ints) + CountStepsR(n - 2, ints) + CountStepsR(n - 3, ints);
         }
 
         public static int CountStepsDynamically(int n, int[] ints)
@@ -46,7 +42,7 @@ namespace BreakableToys
         {
             var ints = new int[key + 1];
             ints[0] = 1;
-            var countSteps = CountStepsDynamically(key, ints);
+            var countSteps = CountStepsR(key, ints);
             countSteps.Should().Be(val);
         }
     }
